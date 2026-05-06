@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>SKY SURVIVALE - Warzone Style</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- ÉCRAN D'ACCUEIL (LOBBY) -->
+    <div id="lobbyScreen" class="lobby-screen">
+        <div class="lobby-bg"></div>
+        <div class="lobby-overlay"></div>
+        
+        <div class="lobby-header">
+            <div class="game-title">
+                <span class="title-main">SKY SURVIVALE</span>
+                <span class="title-sub">WARZONE EDITION</span>
+            </div>
+            <div class="player-info">
+                <div class="player-level">NIVEAU 47</div>
+                <div class="player-name">🪖 COMMANDANT</div>
+                <div class="player-rank">⭐⭐⭐ PRESTIGE 3</div>
+            </div>
+        </div>
+        
+        <div class="lobby-menu">
+            <div class="menu-card selected" data-mode="warzone">
+                <div class="card-icon">🌍</div>
+                <div class="card-title">BATAILLE ROYALE</div>
+                <div class="card-desc">150 joueurs - Survie intense</div>
+            </div>
+            <div class="menu-card" data-mode="multijoueur">
+                <div class="card-icon">🎮</div>
+                <div class="card-title">MULTIJOUEUR</div>
+                <div class="card-desc">6v6 - Combat rapproché</div>
+            </div>
+            <div class="menu-card" data-mode="zombies">
+                <div class="card-icon">🧟</div>
+                <div class="card-title">ZOMBIES</div>
+                <div class="card-desc">Coop - Vagues infinies</div>
+            </div>
+            <div class="menu-card" data-mode="armurerie">
+                <div class="card-icon">🔫</div>
+                <div class="card-title">ARMURERIE</div>
+                <div class="card-desc">Personnalise tes armes</div>
+            </div>
+        </div>
+        
+        <div class="lobby-bottom">
+            <div class="battle-pass">
+                <div class="bp-progress">
+                    <div class="bp-fill" style="width: 65%"></div>
+                </div>
+                <span>PAS DE BATAILLE - Niveau 65</span>
+            </div>
+            <button id="playBtn" class="play-button">
+                <span>▶ JOUER</span>
+            </button>
+            <div class="social-info">
+                <span>👥 12 amis en ligne</span>
+                <span>🎤 Canal vocal</span>
+            </div>
+        </div>
+        
+        <div class="lobby-footer">
+            <div class="footer-item">🔧 Paramètres</div>
+            <div class="footer-item">📊 Classement</div>
+            <div class="footer-item">🎯 Défis</div>
+            <div class="footer-item">🛒 Boutique</div>
+        </div>
+    </div>
+    
+    <!-- ÉCRAN DE CHARGEMENT -->
+    <div id="loadingScreen" class="loading-screen" style="display: none;">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">DÉPLOIEMENT EN COURS...</div>
+            <div class="loading-progress">
+                <div class="loading-progress-fill" id="loadingProgress"></div>
+            </div>
+            <div class="loading-tip">💡 ASTUCE : Trouve le masque neutre pour contrôler des renforts !</div>
+        </div>
+    </div>
+    
+    <!-- JEU (caché au début) -->
+    <div id="gameContainer" style="display: none;">
+        <canvas id="gameCanvas"></canvas>
+        
+        <!-- HUD TYPE WARZONE -->
+        <div class="hud-container">
+            <!-- Mini-map en haut à droite -->
+            <div class="minimap">
+                <div class="minimap-inner" id="minimapInner">
+                    <div class="player-marker"></div>
+                </div>
+                <div class="compass">
+                    <div class="compass-direction">N</div>
+                </div>
+            </div>
+            
+            <!-- Boussole en haut -->
+            <div class="compass-bar" id="compassBar">
+                <div class="compass-marks">
+                    <span>N</span><span>NE</span><span>E</span><span>SE</span><span>S</span><span>SO</span><span>O</span><span>NO</span>
+                </div>
+                <div class="compass-arrow">▼</div>
+            </div>
+            
+            <!-- Santé et Armure -->
+            <div class="health-armor">
+                <div class="health-bar-container">
+                    <div class="health-bar-fill" id="healthBarFill"></div>
+                    <div class="health-text" id="healthText">100</div>
+                </div>
+                <div class="armor-bar-container">
+                    <div class="armor-bar-fill" id="armorBarFill"></div>
+                    <div class="armor-text" id="armorText">0</div>
+                </div>
+            </div>
+            
+            <!-- État de survie (faim/soif) -->
+            <div class="survival-stats">
+                <div class="stat">
+                    <span class="stat-icon">🍖</span>
+                    <div class="stat-bar"><div class="stat-fill" id="hungerStat"></div></div>
+                </div>
+                <div class="stat">
+                    <span class="stat-icon">💧</span>
+                    <div class="stat-bar"><div class="stat-fill" id="thirstStat"></div></div>
+                </div>
+            </div>
+            
+            <!-- Infos arme -->
+            <div class="weapon-info">
+                <div class="weapon-name" id="weaponNameDisplay">M4A1</div>
+                <div class="ammo-count" id="ammoDisplay">30<span id="reserveDisplay">/90</span></div>
+                <div class="weapon-icon">🔫</div>
+            </div>
+            
+            <!-- Équipement tactique -->
+            <div class="equipment">
+                <div class="equip-item">💣 Frag</div>
+                <div class="equip-item">🪄 Flash</div>
+            </div>
+            
+            <!-- Score / Killfeed -->
+            <div class="killfeed" id="killfeed">
+                <div class="kill-entry">🔥 Vous avez éliminé Ennemi</div>
+            </div>
+            
+            <!-- Effet de sang (bords rouges) -->
+            <div class="blood-effect" id="bloodEffect"></div>
+            
+            <!-- Boutons tactiles (mobile/tablette) -->
+            <div class="touch-controls">
+                <!-- Stick analogique gauche -->
+                <div class="joystick-left" id="joystickLeft">
+                    <div class="joystick-base">
+                        <div class="joystick-thumb" id="joystickThumb"></div>
+                    </div>
+                </div>
+                
+                <!-- Zone de visée/tir droite -->
+                <div class="right-controls">
+                    <div class="fire-button" id="fireBtn">🔫</div>
+                    <div class="aim-button" id="aimBtn">🎯</div>
+                    <div class="reload-button" id="reloadBtn">⟳</div>
+                    <div class="weapon-switch" id="weaponSwitchBtn">⇄</div>
+                </div>
+                
+                <!-- Bouton sprint -->
+                <div class="sprint-button" id="sprintBtn">🏃</div>
+                
+                <!-- Bouton interaction -->
+                <div class="interact-button" id="interactBtn">⬇ Utiliser</div>
+            </div>
+            
+            <!-- Notifications -->
+            <div class="notification-area" id="notificationArea"></div>
+        </div>
+        
+        <!-- Crosshair -->
+        <div class="crosshair">
+            <div class="crosshair-dot"></div>
+            <div class="crosshair-line top"></div>
+            <div class="crosshair-line bottom"></div>
+            <div class="crosshair-line left"></div>
+            <div class="crosshair-line right"></div>
+        </div>
+    </div>
+    
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.128.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/"
+            }
+        }
+    </script>
+    <script type="module" src="game.js"></script>
+</body>
+</html>
