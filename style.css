@@ -1,0 +1,197 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Trebuchet MS', 'Arial', sans-serif;
+}
+
+/* UI type Warzone */
+.ui-container {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    z-index: 100;
+    pointer-events: none;
+}
+
+.health-ammo-panel {
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(8px);
+    border-radius: 8px;
+    padding: 12px 20px;
+    border-left: 4px solid #ff3300;
+    font-family: monospace;
+    font-weight: bold;
+    pointer-events: auto;
+    min-width: 200px;
+    color: white;
+}
+
+.stat-bar {
+    width: 100%;
+    height: 12px;
+    background: #2a2a2a;
+    margin: 5px 0;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.stat-fill {
+    height: 100%;
+    width: 100%;
+    transition: width 0.2s;
+}
+
+.health-fill { background: #e34d4d; }
+.armor-fill { background: #4dabf7; }
+.hunger-fill { background: #f4a261; }
+.thirst-fill { background: #74c69d; }
+
+.weapon-info {
+    font-size: 18px;
+    color: #ffcc44;
+    text-shadow: 1px 1px 0 black;
+    margin-top: 5px;
+}
+
+.control-btn {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    background: #ffaa00;
+    color: black;
+    padding: 12px 24px;
+    border-radius: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 200;
+    pointer-events: auto;
+    font-family: monospace;
+    border: none;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    transition: 0.1s;
+}
+
+.control-btn:hover {
+    background: #ffcc44;
+    transform: scale(1.02);
+}
+
+.control-btn.active {
+    background: #00aa44;
+    color: white;
+}
+
+.minimap {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 180px;
+    height: 180px;
+    background: rgba(0,0,0,0.6);
+    border-radius: 50%;
+    border: 3px solid #aaa;
+    pointer-events: none;
+    backdrop-filter: blur(4px);
+}
+
+.crosshair {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 200;
+    box-shadow: 0 0 0 2px black;
+}
+
+.ads-crosshair {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    border: 2px solid rgba(255,255,255,0.8);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    display: none;
+    z-index: 201;
+}
+
+.notification {
+    position: absolute;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: black;
+    color: #ffaa44;
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-weight: bold;
+    pointer-events: none;
+    z-index: 150;
+    transition: opacity 0.3s;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.command-panel {
+    position: absolute;
+    top: 100px;
+    left: 20px;
+    background: rgba(0,0,0,0.85);
+    padding: 12px;
+    border-radius: 12px;
+    color: white;
+    min-width: 220px;
+    backdrop-filter: blur(8px);
+    pointer-events: auto;
+    font-size: 12px;
+    border-left: 3px solid #ffaa00;
+    display: none;
+    z-index: 200;
+}
+
+.command-panel button {
+    background: #ffaa00;
+    border: none;
+    padding: 6px 12px;
+    margin: 5px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.1s;
+}
+
+.command-panel button:hover {
+    background: #ffcc44;
+}
+
+#minionList {
+    margin: 8px 0;
+    padding: 5px;
+    background: rgba(0,0,0,0.5);
+    border-radius: 8px;
+    max-height: 120px;
+    overflow-y: auto;
+}
+
+.minion-item {
+    padding: 4px;
+    border-bottom: 1px solid #555;
+    font-size: 11px;
+}
+
+@media (max-width: 700px) {
+    .health-ammo-panel { font-size: 12px; padding: 6px 12px; min-width: 150px; }
+    .control-btn { padding: 8px 16px; font-size: 12px; }
+    .minimap { width: 120px; height: 120px; }
+    .command-panel { min-width: 180px; font-size: 10px; }
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>SKY SURVIVAL | Battle</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="crosshair"></div>
+    <div class="ads-crosshair" id="adsCrosshair"></div>
+    
+    <div class="ui-container">
+        <div class="health-ammo-panel">
+            <div>❤️ SANTÉ <span id="healthVal">100</span>%</div>
+            <div class="stat-bar"><div id="healthFill" class="stat-fill health-fill" style="width:100%"></div></div>
+            <div>🛡️ ARMURE <span id="armorVal">0</span></div>
+            <div class="stat-bar"><div id="armorFill" class="stat-fill armor-fill" style="width:0%"></div></div>
+            <div>🍖 FAIM <span id="hungerVal">80</span></div>
+            <div class="stat-bar"><div id="hungerFill" class="stat-fill hunger-fill" style="width:80%"></div></div>
+            <div>💧 SOIF <span id="thirstVal">80</span></div>
+            <div class="stat-bar"><div id="thirstFill" class="stat-fill thirst-fill" style="width:80%"></div></div>
+            <div class="weapon-info">🔫 <span id="weaponName">ASSAULT RIFLE</span> | <span id="ammo">30/90</span></div>
+        </div>
+        <div class="minimap" id="minimapCanvas"></div>
+    </div>
+    
+    <button id="controlBtn" class="control-btn">🎭 CONTRÔLER</button>
+    
+    <div id="commandPanel" class="command-panel">
+        <strong>🎮 UNITÉS SOUS COMMANDE</strong>
+        <div id="minionList"></div>
+        <button id="attackBtn">⚔️ ATTAQUER CIBLE</button>
+        <button id="moveHereBtn">🚶 VERS MOI</button>
+        <small>Chaque méchant a une capacité spéciale !</small>
+    </div>
+    
+    <div id="notification" class="notification" style="opacity:0;">Bienvenue en zone de guerre</div>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.128.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/"
+            }
+        }
+    </script>
+    <script type="module" src="game.js"></script>
+</body>
+</html>
